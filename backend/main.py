@@ -30,6 +30,27 @@ async def get_income_statement(symbol: str):
     else:
         return {"error": "Failed to fetch data"}
 
+@app.get("/balance/{symbol}")
+async def get_balance_sheet(symbol: str):
+    url = f"https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={symbol}&apikey={API_KEY}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        # Extract Total Assets & Total Liabilities (latest year)
+        annual_reports = data.get("annualReports", [])
+        if annual_reports:
+            latest_report = annual_reports[0]
+            return {
+                "symbol": symbol,
+                "fiscalDateEnding": latest_report["fiscalDateEnding"],
+                "totalAssets": latest_report["totalAssets"],
+                "totalLiabilities": latest_report["totalLiabilities"]
+            }
+        return {"error": "No balance sheet data found"}
+    else:
+        return {"error": "Failed to fetch data"}
+
 @app.get("/fundamentals/{symbol}")
 async def get_fundamentals(symbol: str):
     url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey={API_KEY}"
