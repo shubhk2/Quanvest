@@ -7,7 +7,7 @@ export default function Home() {
   const symbol = 'AAPL'; // Example stock
 
   useEffect(() => {
-    axios.get(`/api/fundamentals`)
+    axios.get(`/income/route.ts`)
       .then((response) => {
         console.log("API Response:", response.data);
         setFundamentals(response.data);
