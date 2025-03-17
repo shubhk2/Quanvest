@@ -1,29 +1,36 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Home() {
-  const [stocks, setStocks] = useState<string[]>([]);
+  const [fundamentals, setFundamentals] = useState<any>(null);
+  const symbol = 'AAPL'; // Example stock
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/data")
+    axios.get(`/api/fundamentals`)
       .then((response) => {
-        setStocks(response.data.stocks);
+        console.log("API Response:", response.data);
+        setFundamentals(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching stock fundamentals:", error);
       });
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Stock List</h1>
-      <ul>
-        {stocks.map((stock, index) => (
-          <li key={index}>{stock}</li>
-        ))}
-      </ul>
+    <div>
+      <h1>Stock Fundamentals</h1>
+      {fundamentals ? (
+        <div>
+          <p><strong>Company:</strong> {fundamentals.Name}</p>
+          <p><strong>Market Cap:</strong> {fundamentals.MarketCapitalization}</p>
+          <p><strong>P/E Ratio:</strong> {fundamentals.PERatio}</p>
+          <p><strong>Dividend Yield:</strong> {fundamentals.DividendYield}</p>
+          <p><strong>Profit Margin:</strong> {fundamentals.ProfitMargin}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
