@@ -4,10 +4,10 @@ import axios from "axios";
 
 export default function Home() {
   const [fundamentals, setFundamentals] = useState<any>(null);
-  const symbol = 'AAPL'; // Example stock
+  // const symbol = 'AAPL'; // Example stock
 
   useEffect(() => {
-    axios.get(`/api/balance`)
+    axios.get(`/api/fundamentals`)
       .then((response) => {
         console.log("API Response:", response.data);
         setFundamentals(response.data);
