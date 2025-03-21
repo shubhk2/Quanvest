@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, BigInteger, Double, TIMESTAMP, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from ..database import Base  # Assuming you have a database connection setup
+from backend.database import Base  # Assuming you have a database connection setup
 
 
 class Fundamentals(Base):

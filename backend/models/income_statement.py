@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, BigInteger, Date, ForeignKey, TIMESTAMP
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from ..database import Base
+from backend.database import Base
 
 class IncomeStatement(Base):
     __tablename__ = "income_statement"

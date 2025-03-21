@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Date,BigInteger,Integer, String, Float, ForeignKey, TIMESTAMP, func, DateTime
 from sqlalchemy.orm import relationship
 
-from ..database import Base
+from backend.database import Base
 
 class StockPrices(Base):
     __tablename__ = "stock_prices"

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, BigInteger, Date, ForeignKey, TIMESTAMP
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from ..database import Base  # Assuming you have a database connection setup
+from backend.database import Base  # Assuming you have a database connection setup
 
 class BalanceSheet(Base):
     __tablename__ = "balance_sheet"

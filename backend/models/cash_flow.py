@@ -1,6 +1,6 @@
 from sqlalchemy import Column,BigInteger, Date,Integer, String, Float, ForeignKey, TIMESTAMP, func, DateTime
 
-from ..database import Base
+from backend.database import Base
 from sqlalchemy.orm import relationship
 
 class CashFlow(Base):

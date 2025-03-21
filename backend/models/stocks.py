@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, TIMESTAMP, func, DateTime
-from ..database import Base
+from backend.database import Base
 from sqlalchemy.orm import relationship
 
 
@@ -20,3 +20,4 @@ class Stocks(Base):
     stock_prices = relationship("StockPrices", back_populates="stocks")
     balance_sheet = relationship("BalanceSheet", back_populates="stocks")
     cash_flow = relationship("CashFlow", back_populates="stocks")
+    income_statement = relationship("IncomeStatement", back_populates="stocks")
