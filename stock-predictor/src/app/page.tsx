@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default function Home() {
   const [fundamentals, setFundamentals] = useState<any>(null);
-  // const symbol = 'AAPL'; // Example stock
+  // const symbol = 'AAPL'; // Example stocks
 
   useEffect(() => {
     axios.get(`/api/fundamentals`)
@@ -13,7 +13,7 @@ export default function Home() {
         setFundamentals(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching stock fundamentals:", error);
+        console.error("Error fetching stocks fundamentals:", error);
       });
   }, []);
 

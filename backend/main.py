@@ -20,12 +20,7 @@ async def get_income_statement(symbol: str):
         annual_reports = data.get("annualReports", [])
         if annual_reports:
             latest_report = annual_reports[0]
-            return {
-                "symbol": symbol,
-                "fiscalDateEnding": latest_report["fiscalDateEnding"],
-                "totalRevenue": latest_report["totalRevenue"],
-                "netIncome": latest_report["netIncome"]
-            }
+            return latest_report
         return {"error": "No income data found"}
     else:
         return {"error": "Failed to fetch data"}
@@ -41,12 +36,8 @@ async def get_balance_sheet(symbol: str):
         annual_reports = data.get("annualReports", [])
         if annual_reports:
             latest_report = annual_reports[0]
-            return {
-                "symbol": symbol,
-                "fiscalDateEnding": latest_report["fiscalDateEnding"],
-                "totalAssets": latest_report["totalAssets"],
-                "totalLiabilities": latest_report["totalLiabilities"]
-            }
+            return  latest_report
+
         return {"error": "No balance sheet data found"}
     else:
         return {"error": "Failed to fetch data"}
@@ -74,12 +65,7 @@ async def get_cash_flow(symbol: str):
         annual_reports = data.get("annualReports", [])
         if annual_reports:
             latest_report = annual_reports[0]
-            return {
-                "symbol": symbol,
-                "fiscalDateEnding": latest_report["fiscalDateEnding"],
-                "operatingCashFlow": latest_report["operatingCashflow"],
-                "capitalExpenditures": latest_report["capitalExpenditures"]
-            }
+            return latest_report
         return {"error": "No cash flow data found"}
     else:
         return {"error": "Failed to fetch data"}
@@ -94,22 +80,13 @@ async def get_monthly_stock_prices(symbol: str):
     time_series = data.get("Monthly Adjusted Time Series", {})
 
     if not time_series:
-        return {"error": "No data available for this stock symbol"}
+        return {"error": "No data available for this stocks symbol"}
 
     # Extract only the most recent month for display
     latest_date = sorted(time_series.keys())[-1]
     latest_data = time_series[latest_date]
 
-    return {
-        "symbol": symbol,
-        "date": latest_date,
-        "open": latest_data["1. open"],
-        "high": latest_data["2. high"],
-        "low": latest_data["3. low"],
-        "close": latest_data["4. close"],
-        "adjusted_close": latest_data["5. adjusted close"],
-        "volume": latest_data["6. volume"]
-    }
+    return latest_data
 
 
 if __name__ == "__main__":

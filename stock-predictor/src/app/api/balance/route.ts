@@ -12,4 +12,4 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-// Compare this snippet from stock-predictor/src/app/api/income/route.ts:
+// Compare this snippet from stocks-predictor/src/app/api/income/route.ts:
