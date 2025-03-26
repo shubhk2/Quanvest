@@ -1,59 +1,86 @@
 # Quanvest
-## README
 
+## Overview
 
+Quanvest is a stock market financial analysis tool leveraging an NLP model to assist users in querying financial data. The system integrates multiple data sources, stores structured financial information, and enables efficient retrieval through an API-driven architecture.
 
-Quanvest is an automated system designed to analyze historical stock data and generate investment-based predictions. The project integrates Next.js for the frontend and FastAPI for the backend, with PostgreSQL as the primary database.
+## Features
 
-### Features
-- Fetch and store stock data in PostgreSQL
-- Preprocess stock data for machine learning
-- Implement vector database for enhanced querying (upcoming)
-- Train models for fundamental investment-based predictions
+- **Stock Data Storage**: Fetch and store stock market data, including financial statements and price history.
+- **Financial Insights**: Process and analyze financial data using an NLP model.
+- **Database Management**: Structured storage using PostgreSQL and MongoDB(for future).
+- **FastAPI Backend**: Provides RESTful API endpoints for financial data retrieval.
+- **Modular Design**: CRUD operations for stocks, balance sheets, income statements, cash flows, and fundamentals.
 
-### Installation
+## Tech Stack
 
-#### 1. Clone the Repository
+- **Backend**: FastAPI, SQLAlchemy
+- **Database**: PostgreSQL (for structured financial data), MongoDB (for unstructured or flexible storage)
+- **External APIs**: Alpha Vantage (stock market data) and World Bank or RBI APIs or Ministry Of Stats(macroeconomic data)
+- **ML Framework**: NLP-based model for natural language financial queries(finBert for now)
+
+## Setup Instructions
+
 ```sh
-git clone https://github.com/your-repo-name.git
-cd your-repo-name
-```
+# Clone the repository
+git clone https://github.com/shubhk2/Quanvest.git
+cd Quanvest
 
-#### 2. Create a Virtual Environment
-```sh
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
-```
 
-#### 3. Install Dependencies
-```sh
+# Install dependencies
 pip install -r requirements.txt
+
+# Set up environment variables (update .env file)
+
+# Run the FastAPI server
+uvicorn backend.main:app --reload
 ```
 
-#### 4. Set Up PostgreSQL
-- Install PostgreSQL and create a database
-- Update database credentials in `.env` file
-
-#### 5. Run the Backend (FastAPI)
+## Database Setup
 ```sh
-uvicorn main:app --reload
+# Start PostgreSQL service
+sudo systemctl start postgresql
+
+# Create database and user
+psql -U postgres
+CREATE DATABASE quanvest;
+CREATE USER postgres WITH PASSWORD 'shubhk2004';
+GRANT ALL PRIVILEGES ON DATABASE quanvest TO postgres;
 ```
 
-#### 6. Run the Frontend (Next.js)
-```sh
-npm install
-npm run dev
+## Project Structure
+
+```
+Quanvest/
+│-- backend/
+│   ├── crud/                # CRUD operations for database models
+│   ├── models/              # SQLAlchemy ORM models
+│   ├── routes.py            # API endpoints
+│   ├── schemas.py           # Pydantic schemas for data validation
+│   ├── database.py          # Database connection setup
+│   ├── fetch_data.py        # Data fetching from APIs
+│   ├── config.py            # Configuration settings
+│   ├── main.py              # FastAPI entry point
+│-- README.md                # Project documentation
+│-- requirements.txt         # Python dependencies
+|-- #frontend
 ```
 
-### Roadmap
-- [x] Store stock data in PostgreSQL
-- [x] Fetch more stocks for a broader dataset
-- [ ] Start vectorizing and preprocessing for ML training
-- [ ] Implement stock prediction model
-- [ ] Deploy the application
+## API Endpoints
+
+- **Stock Data**: `/stocks/`
+- **Balance Sheets**: `/balance_sheets/`
+- **Income Statements**: `/income_statements/`
+- **Cash Flow Statements**: `/cash_flows/`
+- **Fundamentals**: `/fundamentals/`
+- **Stock_Prices**:`/stock_prices/`
+
+## License
+
+This project is open-source and available under the MIT License.
 
 
 
-
-### License
-This project is licensed under the Apache License 2.0.
